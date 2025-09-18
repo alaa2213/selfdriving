@@ -1,0 +1,34 @@
+slam_toolbox:
+  ros__parameters:
+    # Use asynchronous mapping for better performance
+    mode: async
+
+    # Set the coordinate frames
+    # This tells SLAM Toolbox that your odometry input is from the 'odom' frame
+    odom_frame: odom
+    base_frame: base_link
+    map_frame: map
+
+    # Set the topics for input
+    # The scan topic comes directly from the CARLA bridge
+    scan_topic: /carla/ego_vehicle/lidar
+    
+    # CRITICAL: This is where you tell SLAM Toolbox to use your EKF's output
+    # The odometry topic from your ES-EKF node
+    odom_topic: /odometry/filtered
+
+    # General SLAM parameters
+    max_laser_range: 20.0
+    min_laser_range: 0.2
+    
+    # Odom correction. We are providing high-quality odometry from the EKF
+    # so we can use a small value here.
+    odom_linear_variance: 0.1
+    odom_angular_variance: 0.05
+    
+    # Loop closure parameters
+    # Adjust based on environment and desired loop closure frequency
+    loop_search_maximum_distance: 10.0
+    loop_search_minimum_travel_distance: 1.0
+    
+    # ... other SLAM Toolbox parameters can be added here
